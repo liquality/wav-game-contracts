@@ -20,6 +20,15 @@ struct LevelParam {
     uint256[] mintableSet;
 }
 
+struct BaseLevelInfo {
+    uint8 requiredBurn;
+    uint8 requiredMint;
+    uint32 prizeCutOff;
+    uint256 burnCount;
+    uint256 mintCount;
+}
+
+
 /// @title A title that should describe the contract/interface
 /// @author Liquality
 /// @notice Data structure for individual islands / levels
@@ -27,16 +36,11 @@ struct LevelParam {
 /// @param requiredBurn Number of burnable NFT to burn to get current level mintable NFT 
 /// @dev Explain to a developer any extra details
 struct Level {
-    uint8 requiredBurn;
-    uint8 requiredMint;
-    uint32 prizeCutOff;
-    uint256 burnCount;
-    uint256 mintCount;
+    BaseLevelInfo base;
     EnumerableSet.AddressSet collectors;
     EnumerableSet.UintSet burnableSet;
     EnumerableSet.UintSet mintableSet;
 }
-
 function collect(address _recipient, address _owner, IDParam[] calldata _input) external payable;
 
 function levelUp(address _owner, uint8 _nextLevel, IDParam[] memory _input) external;
